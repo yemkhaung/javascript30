@@ -19,32 +19,44 @@
     let lastY = 0;
     ctx.strokeStyle = '#BADA55';
     let hue = 0;
+    let strokeSize = 0;
+    let direction = true;
 
     function draw(e) {
         // not drawing when flag is off
         if (!isDrawing) return;
 
-        // starts drawing
+        // set stroke        
+        ctx.strokeStyle = `hsL(${hue}, 100%, 50%)`;
+        ctx.lineWidth = strokeSize;
+        // drawing canvas PATH
         ctx.beginPath();
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
 
-        // updates
+        // updates last offset
         [lastX, lastY] = [e.offsetX, e.offsetY];
-        ctx.strokeStyle = ``;
+        // update stroker color value with hue,saturation,light ratio
+        hue = (hue + 1) % 360;
+        // larger stroke on (+) direction and smaller on (-) direction
+        // with limit of 100
+        if (strokeSize > 100 || strokeSize < 0) {
+            direction = !direction;
+        }
+        direction ? strokeSize++ : strokeSize--;
+        
     }
 
+    // Drawing event handlers
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mousedown', (e) => {
         [lastX, lastY] = [e.offsetX, e.offsetY];
         isDrawing = true;
     });
-    canvas.addEventListener('mouseup', (e) => {
-        
-        isDrawing = false;
-    });
+    canvas.addEventListener('mouseup', (e) => isDrawing = false);
     canvas.addEventListener('mouseout', () => isDrawing = false);
+    
 </script>
 
 <style>
