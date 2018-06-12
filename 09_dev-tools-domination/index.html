@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+    // Regular
+    console.log("Normal");
+    // Interpolated
+    console.log("This is a %s line", "interpolated");
+    // Styled
+    console.log("%c This is styled.", "font-size:20px; color: red");
+    // warning!
+    console.warn("This is a warning.");
+    // Error :|
+    console.error("This is an error.");
+    // Info
+    console.info("This is an info.");
+    // Testing
+    console.assert(1 === 2, "This failed to assert.");
+    // clearing
+    // console.clear();
+
+    // Viewing DOM Elements
+    console.dir(document.querySelector('p'));
+    // Grouping together
+    let man = {
+        name: "hero",
+        age: 23
+    }
+    console.group("Group {Hero}");
+    console.log(`name : ${man.name}`);
+    console.log(`age : ${man.age}`);
+    console.groupEnd("Group {Hero}");
+    // counting
+    console.count("Count this!!!");
+    console.count("Count this!!!");
+    console.count("Count this!!!");
+    console.count("Count this!!!");
+    // timing
+    console.time("Timed fn processing...");
+    let count = 0;
+    while (true) {
+        if(count > 1000000) break;
+        count++;
+    }
+    console.timeEnd("Timed fn processing...");
+  </script>
+</body>
+</html>
