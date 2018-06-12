@@ -87,14 +87,13 @@
   </div>
 
 <script>
-    const checkboxes = document.querySelectorAll('.item input');
-    let isHoldShift = false;
-    let isDown = true;
+    const checkboxes = document.querySelectorAll('.item input[type="checkbox"]');
+    let isDirectionDown = true;
 
     function checkHandle(e) {
       
       // if shift is holding
-      if (!isHoldShift) {
+      if (!e.shiftKey) {
           return;
       }
 
@@ -108,7 +107,9 @@
       }
       const checkedItem = checkedItems[0];
       const indexChecked = items.indexOf(checkedItem);
-      indexChecked > indexShifted ? isDown = false : isDown = true;
+
+      // update direction (selecting up or down)
+      indexChecked > indexShifted ? isDirectionDown = false : isDirectionDown = true;
 
       /* DEBUG */
       // console.log(`Shifted Index : ${indexShifted}`);
@@ -116,7 +117,7 @@
       
       let index = indexChecked; // init
       while (true) {
-        isDown ? index++ : index--;
+        isDirectionDown ? index++ : index--;
         items[index].checked = true;
         if (index === indexShifted || index < 0 || index > items.length) { // break
           break;
@@ -129,19 +130,6 @@
         chbx.addEventListener('click', checkHandle);
     });
 
-    window.addEventListener('keydown', (e) => {
-        if (e.keyCode === 16) {
-            e.preventDefault();
-            isHoldShift = true;
-        }
-    });
-
-    window.addEventListener('keyup', (e) => {
-        if (e.keyCode === 16) {
-            e.preventDefault();
-            isHoldShift = false;
-        }
-    })
 </script>
 </body>
 </html>
