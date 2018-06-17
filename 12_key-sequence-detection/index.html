@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+    const SECRET_CODE = 'yellow';
+    const KEY_SEQ = [];
+    window.addEventListener('keyup', (e) => {
+        KEY_SEQ.push(e.key);
+        KEY_SEQ.splice(0, KEY_SEQ.length-SECRET_CODE.length);
+        console.log(KEY_SEQ);
+        if(KEY_SEQ.join('').includes(SECRET_CODE)) {
+            cornify_add();
+        }
+    });
+</script>
+</body>
+</html>
